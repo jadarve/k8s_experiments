@@ -4,6 +4,7 @@ deploy:
   kubectl:
     manifests:
       # here goes all the manifest files for the services I want to deploy
+      - k8s/local/ingress.yaml
       - services/hello/k8s_local.yaml
 build:
   artifacts:

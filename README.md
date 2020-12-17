@@ -4,10 +4,11 @@ Exploring Kubernetes
 
 ## Setup
 
-* Start a minikube cluster
+* Start a minikube cluster and enable the ingress addon
 
 ```
 minikube start
+minikube addons enable ingress
 ```
 
 * Start Skaffold in dev mode
@@ -16,21 +17,36 @@ minikube start
 skaffold dev
 ```
 
-* Expose `hello` deployment as a service
-
-**FIXME:** Can this be described in a `.yaml`?
-```
-kubectl expose deployment hello --type=NodePort --name=hello-service
-```
-
-* Get the service URL
+### Get the service URL directly
 
 ```
 minikube service hello-service --url
+
+curl <url from previous command>
 ```
 
-* Test accessing the service
+### Get the services URLs through the ingress
 
 ```
-http://192.168.99.100:32695
+kubectl get ingress
+```
+
+Output should look like this:
+
+```
+NAME            CLASS    HOSTS         ADDRESS          PORTS   AGE
+local-ingress   <none>   hello.local   192.168.99.100   80      3m20s
+```
+
+Insert the service URL into your `/etc/hosts` file
+
+```
+# Local minikube ingress hosts
+192.168.99.100 hello.local
+```
+
+Test the service
+
+```
+curl http://hello.local/moni
 ```

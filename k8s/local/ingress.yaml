@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: local-ingress
+  # annotations:
+  #   nginx.ingress.kubernetes.io/rewrite-target: /$1  # TODO: what does this do?
+spec:
+  rules:
+    - host: hello.local
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: hello-service
+                port:
+                  number: 80
+
