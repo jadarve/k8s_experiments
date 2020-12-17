@@ -1,0 +1,13 @@
+apiVersion: skaffold/v2beta6
+kind: Config
+deploy:
+  kubectl:
+    manifests:
+      # here goes all the manifest files for the services I want to deploy
+      - services/hello/k8s_local.yaml
+build:
+  artifacts:
+  - image: hello
+    bazel:
+      target: //services/hello:hello.tar
+  

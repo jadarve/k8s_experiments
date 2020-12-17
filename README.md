@@ -1,2 +1,6 @@
-# k8s_experinemnts
+# K8S Experiments
+
 Exploring Kubernetes
+
+## Setup
+
