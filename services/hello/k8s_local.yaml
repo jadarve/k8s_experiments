@@ -1,8 +1,20 @@
-apiVersion: v1
-kind: Pod
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   name: hello
 spec:
-  containers:
-  - name: bazel
-    image: hello
+  selector:
+    matchLabels:
+      run: load-balancer-example
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        run: load-balancer-example
+    spec:
+      containers:
+        - name: bazel
+          image: hello
+          ports:
+            - containerPort: 8080
+              protocol: TCP
